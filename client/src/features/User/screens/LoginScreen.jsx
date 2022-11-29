@@ -1,9 +1,12 @@
 import React from 'react';
-import { Col, Button, Row, Container, Card, Form } from 'react-bootstrap';
-import { Link } from 'react-router-dom';
+import { Button, Card, Col, Form, Row } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
+import { useDispatch, useSelector } from 'react-redux';
+import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
+//! imp Actions
+import { toast } from 'react-toastify';
+import { login } from '../../auth/authSlice';
 
 const useYupValidationResolver = (validationSchema) =>
   React.useCallback(
@@ -41,10 +44,15 @@ const validationSchema = yup.object({
     .string()
     .email('Email không hợp lệ')
     .required('Yêu cầu nhập email'),
-  password: yup.string().required('Yêu cầu nhập email'),
+  password: yup.string().required('Yêu cầu nhập mật khẩu'),
 });
 
 const LoginScreen = () => {
+  const dispatch = useDispatch();
+  const { loading, error } = useSelector((state) => state.auth);
+
+  const navigate = useNavigate();
+
   const resolver = useYupValidationResolver(validationSchema);
 
   const {
@@ -53,6 +61,10 @@ const LoginScreen = () => {
     watch,
     formState: { errors },
   } = useForm({ resolver });
+
+  React.useEffect(() => {
+    error && toast.error(error);
+  }, [error]);
 
   // const handleSubmit = (event) => {
   //   // event.preventDefault();
@@ -73,10 +85,18 @@ const LoginScreen = () => {
 
   const onSubmit = (data) => {
     console.log('__Debugger__LoginScreen__data: ', data);
+
+    if (data.email && data.password) {
+      const formData = {
+        email: data.email,
+        password: data.password,
+      };
+      dispatch(login({ formData, navigate, toast }));
+    }
   };
 
   console.log('__Debugger__LoginScreen__email): ', { ...register('email') });
-  console.log('__Debugger__LoginScreen__error_email: ', errors.email);
+  // console.log('__Debugger__LoginScreen__error_email: ', errors.email);
 
   return (
     <React.Fragment>
@@ -113,11 +133,6 @@ const LoginScreen = () => {
                         />
                       </Col>
                       {errors.email && <h5>{errors.email.message}</h5>}
-                      {errors.email && (
-                        <Form.Control.Feedback type="invalid">
-                          {errors.email.message}
-                        </Form.Control.Feedback>
-                      )}
                     </Form.Group>
 
                     {
@@ -141,9 +156,7 @@ const LoginScreen = () => {
                           {...register('password')}
                         />
                       </Col>
-                      <Form.Control.Feedback type="invalid">
-                        Email không hợp lệ, vui lòng nhập lại!
-                      </Form.Control.Feedback>
+                      {errors.password && <h5>{errors.password.message}</h5>}
                     </Form.Group>
 
                     <Form.Group className="mb-3" controlId="formBasicCheckbox">

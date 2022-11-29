@@ -46,7 +46,7 @@ export const signin = async (req, res, next) => {
 };
 
 export const signup = async (req, res, next) => {
-  const { email, password, firstName, lastName } = req.body;
+  const { firstName, lastName, email, password } = req.body;
 
   try {
     //! check existing

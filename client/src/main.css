@@ -9,6 +9,40 @@
   font-family: "SVN-Poppins", Segoe UI, Tahoma, Geneva, Verdana, sans-serif;
 }
 
+* {
+  --bs-light: #ffffff;
+  --bs-dark: #f5f5f5;
+}
+
+.navbar {
+  --bs-navbar-padding-x: 0;
+  --bs-navbar-padding-y: 0.25rem;
+}
+.navbar .navbar-brand {
+  --bs-navbar-brand-padding-x: 1.25rem;
+  --bs-navbar-brand-padding-y: 0.25rem;
+  --bs-navbar-brand-margin-end: 1rem;
+  --bs-navbar-brand-font-size: 1.25rem;
+  --bs-navbar-brand-color: rgba(0, 0, 0, 0.9);
+}
+.navbar .navbar-nav .nav-link {
+  --bs-nav-link-padding-x: 0.5rem;
+  --bs-nav-link-padding-y: 0.25rem;
+}
+
+.navbar {
+  padding: var(--bs-navbar-padding-y) var(--bs-navbar-padding-x);
+  border-bottom: 2px solid var(--bs-dark);
+  background-color: var(--bs-light) !important;
+}
+.navbar .navbar-brand img {
+  padding: var(--bs-navbar-brand-padding-y) var(--bs-navbar-brand-padding-x);
+  width: 7.5rem;
+}
+.navbar .navbar-nav .nav-link {
+  padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
+}
+
 h1 {
   font-size: 1.4rem;
   padding: 1rem 0;
@@ -25,7 +59,7 @@ h2 {
   border-radius: 10px;
 }
 .card-main .card-line-top {
-  background-color: #2c3e50;
+  background-color: #fff;
   height: 10px;
 }
 
@@ -125,6 +159,77 @@ main {
   }
   100% {
     transform: rotate(360deg);
+  }
+}
+.tags-input {
+  display: flex;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  min-height: 48px;
+  width: 100%;
+  padding: 0 8px;
+  border: 1px solid rgb(214, 216, 218);
+  border-radius: 6px;
+}
+.tags-input:focus-within {
+  color: #212529;
+  background-color: #fff;
+  border-color: #86b7fe;
+  outline: 0;
+  box-shadow: 0 0 0 0.25rem rgba(49, 49, 49, 0.25);
+}
+.tags-input input {
+  flex: 1;
+  border: none;
+  height: 46px;
+  font-size: 14px;
+  padding: 4px 0 0 0;
+}
+.tags-input input:focus {
+  outline: transparent;
+}
+
+#tags {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0;
+  margin: 8px 0 0 0;
+}
+
+.tag {
+  width: auto;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #fff;
+  padding: 0 8px;
+  font-size: 14px;
+  list-style: none;
+  border-radius: 6px;
+  margin: 0 8px 8px 0;
+  background: #0052cc;
+}
+.tag .tag-title {
+  margin-top: 3px;
+}
+.tag .tag-close-icon {
+  display: block;
+  width: 16px;
+  height: 16px;
+  line-height: 16px;
+  text-align: center;
+  font-size: 14px;
+  margin-left: 8px;
+  color: #0052cc;
+  border-radius: 50%;
+  background: #fff;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 567px) {
+  .tags-input {
+    width: calc(100vw - 32px);
   }
 }
 
