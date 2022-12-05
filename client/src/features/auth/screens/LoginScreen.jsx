@@ -1,12 +1,12 @@
 import React from 'react';
-import { Button, Card, Col, Form, Row } from 'react-bootstrap';
+import { Button, Card, Col, Form, Row, Alert } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import * as yup from 'yup';
 //! imp Actions
 import { toast } from 'react-toastify';
-import { login } from '../../auth/authSlice';
+import { login } from '../authSlice';
 
 const useYupValidationResolver = (validationSchema) =>
   React.useCallback(
@@ -48,6 +48,8 @@ const validationSchema = yup.object({
 });
 
 const LoginScreen = () => {
+  const [showAlert, setShowAlert] = React.useState(true);
+
   const dispatch = useDispatch();
   const { loading, error } = useSelector((state) => state.auth);
 
@@ -100,14 +102,51 @@ const LoginScreen = () => {
 
   return (
     <React.Fragment>
-      <Row className="vh-100 d-flex justify-content-center align-items-center">
+      <Row>
+        <Col>
+          <Alert show={showAlert} variant="secondary">
+            <Alert.Heading>Tài khoản giành cho nhà tuyển dụng!</Alert.Heading>
+            <Row>
+              <Col xs="6" sm="6" md="4" lg="3">
+                <b> - Admin:</b>
+                <div>
+                  <strong>email</strong>: admin@foxv.com
+                </div>
+                <div>
+                  <strong>password</strong>: admin123
+                </div>
+              </Col>
+              <Col xs="6" sm="6" md="4" lg="3">
+                <b> - User (client):</b>
+                <div>
+                  <strong>email</strong>: client@foxv.com
+                </div>
+                <div>
+                  <strong>password</strong>: client123
+                </div>
+              </Col>
+            </Row>
+
+            <hr />
+            <div className="d-flex justify-content-end">
+              <Button onClick={() => setShowAlert(false)} variant="danger">
+                Ẩn thông báo
+              </Button>
+            </div>
+          </Alert>
+        </Col>
+      </Row>
+      <Row className="d-flex justify-content-center align-items-center">
         <Col md={8} lg={6} xs={12}>
           <Card className="card-main shadow overflow-hidden">
             <div className="card-line-top"></div>
             <Card.Body>
               <div className="mb-3 mt-md-4">
                 <h2 className="fw-bold mb-2 text-uppercase ">FOXV ECOMERCE</h2>
-                <p className=" mb-5">Xin vui lòng nhập email và mật khẩu!</p>
+                <p className=" mb-5">
+                  Đăng nhập để tích điểm và hưởng ưu đãi thành viên khi mua
+                  hàng. Nhập Email để đăng nhập thành viên FOXV.
+                </p>
                 <div className="mb-3">
                   {
                     //! "handleSubmit" will validate your inputs before invoking "onSubmit"

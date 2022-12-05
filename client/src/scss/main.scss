@@ -1,6 +1,6 @@
 // @import 'abstracts/*';
 @import 'vendors/fonts';
-@import './abstracts/bs-variables';
+@import 'abstracts/bs-variables';
 @import 'vendors/boostrap';
 @import 'base/typography';
 @import 'layout/form';
@@ -8,5 +8,7 @@
 @import 'components/rating';
 @import 'components/loader';
 @import 'components/inputs';
-// @import 'pages/*';
+@import 'components/navbar';
+//! screens
+@import 'screens/ProductDetailScreen';
 // @import 'themes/*';

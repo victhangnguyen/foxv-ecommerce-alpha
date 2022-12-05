@@ -1,36 +1,34 @@
 import React from 'react';
 
+//! imp icons
+import CloseIcon from '../components/icons/CloseIcon';
+
 const TagsInput = (props) => {
-  const [tags, setTags] = React.useState(props.tags);
+  const tags = props.value || [];
 
-  React.useEffect(() => {
-    props.onChange(tags);
-  }, [tags]);
-
-  const removeTags = (indexToRemove) => {
-    setTags([...tags.filter((_, index) => index !== indexToRemove)]);
+  const removeTags = (tagIndex) => {
+    props.onChange([...tags.filter((_, index) => index !== tagIndex)]);
   };
 
   const addTags = (event) => {
     if (event.target.value !== '') {
-      setTags([...tags, event.target.value]);
-      event.target.value = '';
+      props.onChange([...tags, event.target.value]);
+      event.target.value = ''; //! reset Input form
     }
   };
 
-  console.log(
-    '__Debugger__components__TabsInputComponent__props__value: ',
-    props.value
-  );
-
   return (
-    <div className="tags-input">
+    <div
+      className={`tags-input form-control ${
+        props.errors.tags ? 'is-invalid' : ''
+      }`}
+    >
       <ul id="tags">
-        {tags?.map((tag, index) => (
+        {tags.map((tag, index) => (
           <li key={index} className="tag">
             <span className="tag-title">{tag}</span>
             <span className="tag-close-icon" onClick={() => removeTags(index)}>
-              x
+            <CloseIcon size={'.5rem'} color="#fff" />
             </span>
           </li>
         ))}
@@ -38,7 +36,7 @@ const TagsInput = (props) => {
       <input
         type="text"
         onKeyUp={(event) => (event.key === 'Enter' ? addTags(event) : null)}
-        placeholder="Press enter to add tgs"
+        placeholder="Thêm tags cho sản phẩm"
       />
     </div>
   );

@@ -1,11 +1,9 @@
-import { NavLink, Link } from 'react-router-dom';
+import { NavLink, useNavigate } from 'react-router-dom';
 import { toast } from 'react-toastify';
 
-import Image from 'react-bootstrap/Image';
 import React from 'react';
-import Button from 'react-bootstrap/Button';
 import Container from 'react-bootstrap/Container';
-import Form from 'react-bootstrap/Form';
+import Image from 'react-bootstrap/Image';
 import Nav from 'react-bootstrap/Nav';
 import Navbar from 'react-bootstrap/Navbar';
 import NavDropdown from 'react-bootstrap/NavDropdown';
@@ -17,12 +15,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { setLogout } from '../features/auth/authSlice';
 
 const HeaderComponent = () => {
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector((state) => ({ ...state.auth }));
 
   const handleLogout = () => {
     dispatch(setLogout());
-    toast.error(`${user?.result?.name} is logged-out`);
+    toast.success(`${user?.result?.name} logout`);
+    navigate('/login');
   };
 
   return (
@@ -83,11 +83,18 @@ const HeaderComponent = () => {
                 //! Nav
               }
               <Nav className="justify-content-end flex-grow-1 pe-3">
-                {user?.result?._id && user?.result?.role === 'admin' ? (
+                {user ? (
                   <>
-                    <NavLink className="nav-link" to={'/addProduct'}>
-                      Thêm sản phẩm
-                    </NavLink>
+                    {user.result.role === 'admin' && (
+                      <NavLink className="nav-link" to={'/addProduct'}>
+                        Thêm sản phẩm
+                      </NavLink>
+                    )}
+                    {user.result.role === 'user' && (
+                      <NavLink className="nav-link" to={'/addProduct'}>
+                        Giỏ hàng
+                      </NavLink>
+                    )}
                     <NavDropdown
                       title={user.result.name}
                       id={`offcanvasNavbarDropdown-expand-lg`}
@@ -95,25 +102,13 @@ const HeaderComponent = () => {
                       <NavDropdown.Item href="#action3">
                         Profile
                       </NavDropdown.Item>
-                      <NavDropdown.Item href="#action4">
-                        Dashboard
-                      </NavDropdown.Item>
-                      <NavDropdown.Divider />
-                      <NavDropdown.Item onClick={handleLogout}>
-                        Logout
-                      </NavDropdown.Item>
-                    </NavDropdown>
-                  </>
-                ) : user?.result?._id && user?.result?.role === 'user' ? (
-                  <>
-                    <Nav.Link href="#action2">Giỏ hàng</Nav.Link>
-                    <NavDropdown
-                      title={user.result.name}
-                      id={`offcanvasNavbarDropdown-expand-lg`}
-                    >
-                      <NavDropdown.Item href="#action3">
-                        Profile
-                      </NavDropdown.Item>
+                      {user.result.role === 'admin' && (
+                        <NavDropdown.Item>
+                          <NavLink className="nav-link" to={'/admin/dashboard'}>
+                            Dashboard
+                          </NavLink>
+                        </NavDropdown.Item>
+                      )}
                       <NavDropdown.Divider />
                       <NavDropdown.Item onClick={handleLogout}>
                         Logout
@@ -121,9 +116,14 @@ const HeaderComponent = () => {
                     </NavDropdown>
                   </>
                 ) : (
-                  <NavLink className="nav-link" to="/login">
-                    Login
-                  </NavLink>
+                  <>
+                    <NavLink className="nav-link" to="/register">
+                      Đăng ký
+                    </NavLink>
+                    <NavLink className="nav-link" to="/login">
+                      Đăng nhập
+                    </NavLink>
+                  </>
                 )}
               </Nav>
             </Offcanvas.Body>

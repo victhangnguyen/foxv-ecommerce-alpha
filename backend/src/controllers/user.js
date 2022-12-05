@@ -10,6 +10,9 @@ import config from '../config/index.js';
 //! imp models
 import UserModal from '../models/user.js';
 
+//! @desc     Create a new User [Register]
+//! @route    POST /users/signup
+//! @access   Public
 export const signin = async (req, res, next) => {
   //! Signin username and password will get the Token that used to authenticated
   const { email, password } = req.body;
@@ -45,6 +48,9 @@ export const signin = async (req, res, next) => {
   }
 };
 
+//! @desc     [Authentication]
+//! @route    POST /users/signin
+//! @access   Public
 export const signup = async (req, res, next) => {
   const { firstName, lastName, email, password } = req.body;
 

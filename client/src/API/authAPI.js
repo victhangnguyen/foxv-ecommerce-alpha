@@ -1,14 +1,14 @@
-import axiosClient from './axiosClient';
+import axiosInstance from './axiosInstance';
 
 const userAPI = {
   postSignIn: (formData, config) => {
     const url = `/users/signin`;
-    return axiosClient.post(url, formData, config);
+    return axiosInstance.post(url, formData, config);
   },
 
   postSignUp: (formData, config) => {
     const url = `/users/signup`;
-    return axiosClient.post(url, formData, config);
+    return axiosInstance.post(url, formData, config);
   },
 
 };

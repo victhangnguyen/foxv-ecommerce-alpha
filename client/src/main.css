@@ -43,6 +43,14 @@
   padding: var(--bs-nav-link-padding-y) var(--bs-nav-link-padding-x);
 }
 
+.breadcrumb .breadcrumb-item a {
+  text-decoration: none;
+  color: #2c3e50;
+}
+.breadcrumb .breadcrumb-item.active a {
+  font-weight: bold;
+}
+
 h1 {
   font-size: 1.4rem;
   padding: 1rem 0;
@@ -59,7 +67,7 @@ h2 {
   border-radius: 10px;
 }
 .card-main .card-line-top {
-  background-color: #fff;
+  background-color: #2c3e50;
   height: 10px;
 }
 
@@ -189,6 +197,13 @@ main {
   outline: transparent;
 }
 
+.form-group .form-invalid-feedback {
+  width: 100%;
+  margin-top: 0.25rem;
+  font-size: 0.875em;
+  color: #e74c3c;
+}
+
 #tags {
   display: flex;
   flex-wrap: wrap;
@@ -202,13 +217,13 @@ main {
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: #2c3e50;
   padding: 0 8px;
   font-size: 14px;
   list-style: none;
   border-radius: 6px;
   margin: 0 8px 8px 0;
-  background: #0052cc;
+  background: #bfd8e8;
 }
 .tag .tag-title {
   margin-top: 3px;
@@ -221,9 +236,8 @@ main {
   text-align: center;
   font-size: 14px;
   margin-left: 8px;
-  color: #0052cc;
   border-radius: 50%;
-  background: #fff;
+  background: #2c3e50;
   cursor: pointer;
 }
 
@@ -231,6 +245,50 @@ main {
   .tags-input {
     width: calc(100vw - 32px);
   }
+}
+.nav .nav-dashboard {
+  background-color: #bfd8e8;
+}
+
+.gallery-wrap .img-product-main-wrap {
+  margin-bottom: 10px;
+  border-radius: 0.37rem;
+  overflow: hidden;
+  background-color: #fff;
+}
+.gallery-wrap .thumbs-wrap {
+  text-align: center;
+  margin-bottom: 20px;
+}
+.gallery-wrap .thumbs-wrap .item-thumb {
+  width: 60px;
+  height: 60px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  margin: 3px;
+  display: inline-block;
+  overflow: hidden;
+}
+.gallery-wrap .thumbs-wrap .item-thumb img {
+  max-width: 100%;
+  max-height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
+  border-radius: 4px;
+  cursor: zoom-in;
+}
+.gallery-wrap .thumbs-wrap .item-thumb img:hover {
+  -webkit-filter: brightness(1.1);
+  filter: brightness(1.1);
+  cursor: zoom-in;
+}
+
+.card .card-id {
+  text-transform: uppercase;
+}
+.card .card-price {
+  font-weight: 600;
+  color: #212529;
 }
 
 /*# sourceMappingURL=main.css.map */

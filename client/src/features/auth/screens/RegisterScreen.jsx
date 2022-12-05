@@ -120,7 +120,7 @@ const RegisterScreen = () => {
 
   return (
     <React.Fragment>
-      <Row className="vh-100 d-flex justify-content-center align-items-center">
+      <Row className="mb-4 d-flex justify-content-center align-items-center">
         <Col md={8} lg={6} xs={12}>
           <Card className="card-main shadow overflow-hidden">
             <div className="card-line-top"></div>
@@ -129,8 +129,10 @@ const RegisterScreen = () => {
                 <h2 className="fw-bold mb-2 text-uppercase ">
                   Đăng ký tài khoản
                 </h2>
-                <p className=" mb-4">Xin vui lòng nhập đầy đủ thông tin!</p>
-                {
+                <p className=" mb-5">
+                  Đăng ký để tích điểm và hưởng ưu đãi thành viên khi mua
+                  hàng. Nhập Email để đăng ký thành viên FOXV.
+                </p>                {
                   //! "handleSubmit" will validate your inputs before invoking "onSubmit"
                 }
                 <Form
@@ -152,7 +154,7 @@ const RegisterScreen = () => {
                         <Form.Control
                           name="lastName"
                           type="text"
-                          placeholder="Nhập Họ"
+                          placeholder="Nhập họ của bạn"
                           {...register('lastName', {
                             required: true,
                           })}
@@ -180,7 +182,7 @@ const RegisterScreen = () => {
                         <Form.Control
                           name="firstName"
                           type="text"
-                          placeholder="Nhập Tên"
+                          placeholder="Nhập tên của bạn"
                           {...register('firstName', {
                             required: true,
                           })}
@@ -203,7 +205,7 @@ const RegisterScreen = () => {
                         <Form.Control
                           name="email"
                           type="email"
-                          placeholder="Nhập Tên"
+                          placeholder="Nhập email của bạn"
                           {...register('email', {
                             required: true,
                           })}
@@ -231,7 +233,7 @@ const RegisterScreen = () => {
                         <Form.Control
                           name="password"
                           type="password"
-                          placeholder="Xin vui lòng nhập tên"
+                          placeholder="Nhập mật khẩu"
                           {...register('password', {
                             required: true,
                           })}
@@ -258,7 +260,7 @@ const RegisterScreen = () => {
                         <Form.Control
                           name="confirmPassword"
                           type="password"
-                          placeholder="Xin vui lòng nhập tên"
+                          placeholder="Nhập lại mật khẩu xác nhận"
                           {...register('confirmPassword', {
                             required: true,
                           })}
@@ -288,7 +290,7 @@ const RegisterScreen = () => {
                 <div className="mt-3">
                   <p className="mb-0  text-center">
                     Bạn đã có tài khoản?{' '}
-                    <Link to={'/register'} className="text-primary fw-bold">
+                    <Link to={'/login'} className="text-primary fw-bold">
                       Đăng nhập
                     </Link>
                   </p>

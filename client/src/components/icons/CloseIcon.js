@@ -1,6 +1,6 @@
 import React from 'react';
 
-const UserIcon = ({ size, color }) => {
+const CloseIcon = ({ size, color }) => {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
@@ -15,4 +15,4 @@ const UserIcon = ({ size, color }) => {
   );
 };
 
-export default UserIcon;
+export default CloseIcon;
