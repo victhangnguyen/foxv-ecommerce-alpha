@@ -32,6 +32,11 @@ const categoryAPI = {
     const url = `/category/${slug}`;
     return axiosInstance.post(url, category, config);
   },
+
+  deleteCategory: (slug, config) => {
+    const url = `/category/${slug}`;
+    return axiosInstance.delete(url, config);
+  },
 };
 
 export default categoryAPI;

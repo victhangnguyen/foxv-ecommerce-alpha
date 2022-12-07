@@ -250,6 +250,13 @@ main {
   background-color: #bfd8e8;
 }
 
+.card.card-category {
+  padding: 0.5rem;
+}
+.card .card-body {
+  padding: 0;
+}
+
 .gallery-wrap .img-product-main-wrap {
   margin-bottom: 10px;
   border-radius: 0.37rem;

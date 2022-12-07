@@ -32,7 +32,7 @@ axiosInstance.interceptors.request.use((config) => {
 
 axiosInstance.interceptors.response.use(
   (response) => {
-    if (response && response.data) {
+    if (response?.data) {
       return response.data;
     }
     return response;

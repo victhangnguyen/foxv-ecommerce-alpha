@@ -99,10 +99,8 @@ const HeaderComponent = () => {
                       title={user.result.name}
                       id={`offcanvasNavbarDropdown-expand-lg`}
                     >
-                      <NavDropdown.Item href="#action3">
-                        Profile
-                      </NavDropdown.Item>
-                      {user.result.role === 'admin' && (
+                      <NavDropdown.Item>Profile</NavDropdown.Item>
+                      {user.result.role >= 5 && (
                         <NavDropdown.Item>
                           <NavLink className="nav-link" to={'/admin/dashboard'}>
                             Dashboard

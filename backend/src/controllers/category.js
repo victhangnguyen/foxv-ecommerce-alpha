@@ -15,7 +15,7 @@ export const createCategory = async (req, res, next) => {
     res.status(201).json(category);
   } catch (error) {
     Logging.error('Error__ctrls__Category: ' + error);
-    res.status(404).json({ message: error.message });
+    res.status(400).json({ message: 'Create Category failed!' });
   }
 };
 

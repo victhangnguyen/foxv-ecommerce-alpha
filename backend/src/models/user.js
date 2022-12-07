@@ -21,9 +21,10 @@ const userSchema = new mongoose.Schema({
     required: false,
   },
   role: {
-    type: String,
-    enum: ['user', 'subscriber', 'admin'],
-    default: 'user',
+    type: Number,
+    // enum: ['user', 'subscriber', 'admin'],
+    //! guess: 0 - user: 1 - subscriber: 2 - admin: 5
+    default: 1,
     required: true,
   },
 });

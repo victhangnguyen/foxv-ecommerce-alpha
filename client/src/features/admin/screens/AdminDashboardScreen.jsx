@@ -1,6 +1,7 @@
 import React from 'react';
-import AdminNavComponent from '../components/navbar/AdminNavComponent';
 //! Components
+import AdminNavComponent from '../components/navbar/AdminNavComponent';
+import CategoryCreate from '../../category/screens/CategoryCreate';
 import { Row, Col } from 'react-bootstrap';
 
 const AdminDashboardScreen = () => {
@@ -8,6 +9,9 @@ const AdminDashboardScreen = () => {
     <Row>
       <Col md="2">
         <AdminNavComponent />
+      </Col>
+      <Col>
+        <CategoryCreate />
       </Col>
     </Row>
   );

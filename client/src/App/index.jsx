@@ -8,15 +8,12 @@ import { RouterProvider } from 'react-router-dom';
 
 import { persistStore } from 'redux-persist';
 import { PersistGate } from 'redux-persist/integration/react';
-import { injectStore } from '../API/axiosInstance';
-
-//! router
+import * as axiosInstance from '../API/axiosInstance';
 import router from './router';
-
-//! store
+//! RTK Store
 import store from './store';
-//! inject store to axiosInstance
-injectStore(store);
+//! inject Store
+axiosInstance.injectStore(store);
 
 let persistor = persistStore(store);
 

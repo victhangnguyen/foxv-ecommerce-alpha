@@ -115,8 +115,7 @@ const RegisterScreen = () => {
     }
   };
 
-  console.log('__Debugger__RegisterScreen__email): ', { ...register('email') });
-  // console.log('__Debugger__RegisterScreen__error_email: ', errors.email);
+  // console.log('__Debugger__RegisterScreen__email): ', { ...register('email') });
 
   return (
     <React.Fragment>
@@ -130,9 +129,10 @@ const RegisterScreen = () => {
                   Đăng ký tài khoản
                 </h2>
                 <p className=" mb-5">
-                  Đăng ký để tích điểm và hưởng ưu đãi thành viên khi mua
-                  hàng. Nhập Email để đăng ký thành viên FOXV.
-                </p>                {
+                  Đăng ký để tích điểm và hưởng ưu đãi thành viên khi mua hàng.
+                  Nhập Email để đăng ký thành viên FOXV.
+                </p>{' '}
+                {
                   //! "handleSubmit" will validate your inputs before invoking "onSubmit"
                 }
                 <Form
@@ -286,7 +286,6 @@ const RegisterScreen = () => {
                     </Button>
                   </div>
                 </Form>
-
                 <div className="mt-3">
                   <p className="mb-0  text-center">
                     Bạn đã có tài khoản?{' '}
