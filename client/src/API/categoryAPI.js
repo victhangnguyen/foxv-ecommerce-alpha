@@ -19,23 +19,34 @@ const categoryAPI = {
 
   //! @desc     Create a new Category
   //! @route    POST /api/category
-  //! @access   Public
+  //! @access   Public: Guest, User...
   createCategory: (category, config) => {
     const url = `/category`;
     return axiosInstance.post(url, category, config);
   },
 
-  //! @desc     Fetch all products
-  //! @route    GET /api/products
-  //! @access   Public
+  //! @desc     Update one Category
+  //! @route    PUT /api/category/:slug
+  //! @access   Private: Admin
   updateCategory: (slug, category, config) => {
     const url = `/category/${slug}`;
-    return axiosInstance.post(url, category, config);
+    return axiosInstance.put(url, category, config);
   },
 
+  //! @desc     Delete one Category
+  //! @route    DEL /api/category/:slug
+  //! @access   Private: Admin
   deleteCategory: (slug, config) => {
     const url = `/category/${slug}`;
     return axiosInstance.delete(url, config);
+  },
+
+  //! @desc     Get all SubCateogries by CategoryId
+  //! @route    DEL /api/category/subs/:categoryId
+  //! @access   Public: Guest, User...
+  getCategorySubs: (categoryId, config) => {
+    const url = `/category/subs/${categoryId}`;
+    return axiosInstance.get(url, config);
   },
 };
 

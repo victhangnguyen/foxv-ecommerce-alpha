@@ -102,7 +102,7 @@ const HeaderComponent = () => {
                       <NavDropdown.Item>Profile</NavDropdown.Item>
                       {user.result.role >= 5 && (
                         <NavDropdown.Item>
-                          <NavLink className="nav-link" to={'/admin/dashboard'}>
+                          <NavLink className="nav-link" to={'/admin/category'}>
                             Dashboard
                           </NavLink>
                         </NavDropdown.Item>

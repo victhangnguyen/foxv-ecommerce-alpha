@@ -16,6 +16,7 @@ import config from './config/index.js';
 //! imp routes
 import userRouter from './routes/user.js';
 import categoryRouter from './routes/category.js';
+import subCategoryRouter from './routes/subCategory.js';
 import productRouter from './routes/product.js';
 
 const app = express();
@@ -35,7 +36,8 @@ app.use('/images', express.static(imagesDir));
 
 app.use('/api/users', userRouter);
 app.use('/api', categoryRouter);
-app.use('/api/products', productRouter);
+app.use('/api', subCategoryRouter);
+app.use('/api', productRouter);
 
 config.db
   .connectMongoDB()

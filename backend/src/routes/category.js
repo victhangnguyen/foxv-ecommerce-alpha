@@ -32,4 +32,6 @@ router.delete(
   categoryController.removeCategory
 );
 
+router.get('/category/subs/:categoryId', categoryController.getSubs);
+
 export default router;

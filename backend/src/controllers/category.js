@@ -5,6 +5,7 @@ import Logging from '../library/Logging.js';
 
 //! imp models
 import Category from '../models/category.js';
+import SubCategory from '../models/subCategory.js';
 
 export const createCategory = async (req, res, next) => {
   const { name } = req.body;
@@ -31,13 +32,14 @@ export const getCategories = async (req, res, next) => {
 
 // getCategory
 export const getCategory = async (req, res, next) => {
+  const { slug } = req.params;
+
   try {
-    const { slug } = req.params;
     const category = await Category.findOne({ slug });
     res.status(200).json(category);
   } catch (error) {
     Logging.error('Error__ctrls__Category: ' + error);
-    res.status(404).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -53,7 +55,7 @@ export const updateCategory = async (req, res, next) => {
     res.status(200).json(updatedCategory);
   } catch (error) {
     Logging.error('Error__ctrls__Category: ' + error);
-    res.status(404).json({ message: error.message });
+    res.status(400).json({ message: error.message });
   }
 };
 
@@ -64,6 +66,19 @@ export const removeCategory = async (req, res, next) => {
     res.json(deletedCategory); //! return deletedCategory
   } catch (error) {
     Logging.error('Error__ctrls__Category: ' + error);
-    res.status(404).json({ message: error.message });
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const getSubs = async (req, res, next) => {
+  const { categoryId } = req.params;
+
+  try {
+    const subCategories = await SubCategory.find({ parent: categoryId });
+
+    res.status(200).json(subCategories); //! return deletedCategory
+  } catch (error) {
+    Logging.error('Error__ctrls__Category: ' + error);
+    res.status(400).json({ message: error.message });
   }
 };

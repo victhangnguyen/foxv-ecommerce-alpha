@@ -1,16 +1,14 @@
 import React from 'react';
-import { Col, Form, Row, Card, Button } from 'react-bootstrap';
+import slugify from 'slugify';
+import { Col, Form, Row, Breadcrumb, Button } from 'react-bootstrap';
 import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, Link, useParams } from 'react-router-dom';
 import { toast } from 'react-toastify';
 import * as yup from 'yup';
 //! imp Actions
 import categoryAPI from '../../../API/categoryAPI';
 // import { register as authRegister } from '../../category/';
-//! components/icons
-import EditRegularIcon from '../../../components/icons/EditRegularIcon';
-import TrashIcon from '../../../components/icons/TrashIcon';
 
 const useYupValidationResolver = (validationSchema) =>
   React.useCallback(
@@ -51,9 +49,12 @@ const validationSchema = yup.object({
     .required('Vui lòng nhập Họ của bạn.'),
 });
 
-const CategoryCreate = () => {
+const CategoryUpdateScreen = () => {
+  const navigate = useNavigate();
   const [loading, setLoading] = React.useState(false);
-  const [categories, setCategories] = React.useState([]);
+  const [name, setName] = React.useState('');
+  const { slug } = useParams();
+
   const auth = useSelector((state) => ({ ...state.auth }));
 
   const resolver = useYupValidationResolver(validationSchema);
@@ -61,6 +62,8 @@ const CategoryCreate = () => {
   const {
     register,
     handleSubmit,
+    setValue,
+    getValues,
     watch,
     formState: { errors },
   } = useForm({ resolver });
@@ -70,69 +73,35 @@ const CategoryCreate = () => {
   }, [auth.error]);
 
   React.useEffect(() => {
-    loadCategories();
+    loadCategory();
   }, []);
 
-  const loadCategories = () => {
+  const loadCategory = () => {
     categoryAPI
-      .getCategories()
+      .getCategory(slug)
       .then((data) => {
-        setCategories(data);
+        console.log('__Debugger__screens__CategoryUpdate__data: ', data);
+
+        setValue('name', data.name);
+        setName(getValues('name'));
       })
       .catch((error) => {
         console.log(error);
       });
   };
 
-  const onSubmit = (data) => {
+  const onSubmit = (category) => {
     setLoading(true);
-    const { name } = data;
-
-    if (name) {
-      const category = {
-        name,
-      };
-      categoryAPI
-        .createCategory(category)
-        .then((category) => {
-          console.log(
-            '__Debugger__screens__CategoryCreate__category: ',
-            category
-          );
-          setLoading(false);
-          loadCategories();
-          toast.success(`${category.name} đã được tạo!`);
-        })
-        .catch((error) => {
-          setLoading(false);
-          console.log('__Debugger__screens__CategoryCreate__error: ', error);
-          if (error.response.status === 400) {
-            toast.error(error.response.data.message);
-          }
-        });
-
-      // dispatch(authRegister({ categoryData, navigate, toast }));
-    }
-  };
-
-  const handleRemove = (slug) => {
-    //! Model delete
-    setLoading(true);
-
     categoryAPI
-      .deleteCategory(slug)
-      .then((category) => {
+      .updateCategory(slug, category)
+      .then((data) => {
         setLoading(false);
-        loadCategories();
-        toast.success(`${category.name} đã được xóa!`);
+        navigate(`/admin/category/${data.slug}`);
+        toast.success(`${name} đổi thành ${data.slug} thành công!`);
+        setName(data.name);
       })
       .catch((error) => {
         setLoading(false);
-        console.log(
-          '__Debugger__screens__CategoryCreate__removeCategory__error: ',
-          error
-        );
-
         if (error.response.status === 400) {
           toast.error(error.response.data.message);
         }
@@ -141,8 +110,25 @@ const CategoryCreate = () => {
 
   return (
     <div className="mb-3 mt-md-4">
+      <Row>
+        <Col>
+          <Breadcrumb>
+            <li className="breadcrumb-item">
+              <Link to="/">Home</Link>
+            </li>
+            <li className="breadcrumb-item">
+              <Link to={`/admin/category`}>Category</Link>
+            </li>
+            <li className="breadcrumb-item active">
+              <Link to={`/admin/category/${slug}`}>{name}</Link>
+            </li>
+          </Breadcrumb>
+        </Col>
+      </Row>
       <h2 className="fw-bold mb-2 text-uppercase ">Tạo Category</h2>
-      <p className=" mb-3">Điền đầy đủ thông tin để tạo Category mới!</p>{' '}
+      <p className=" mb-3">
+        Điền đầy đủ thông tin để thay đổi Thông tin Category!
+      </p>{' '}
       {
         //! "handleSubmit" will validate your inputs before invoking "onSubmit"
       }
@@ -171,52 +157,27 @@ const CategoryCreate = () => {
               )}
             </Col>
           </Form.Group>
+          {
+            //! slug
+          }
+          <p>Slug: {name && slugify(name)}</p>
 
           {
             //! Submit
           }
         </div>
         <div>
-          <Button variant="primary" type="submit">
-            {loading ? 'Loading...' : 'Tạo ngay'}
+          <Button className="mx-2" variant="primary" type="submit">
+            {loading ? 'Loading...' : 'Thay đổi'}
+          </Button>
+          <Button className="mx-2" variant="success" type="submit">
+            <Link to="/admin/category">Quay về</Link>
           </Button>
         </div>
       </Form>
       <hr />
-      <Row>
-        {categories.map((category) => {
-          return (
-            <Col md="4" key={category.slug}>
-              <Card className="card-category my-1 bg-light">
-                <Card.Body className="d-flex align-items-center justify-content-between">
-                  <strong>{category.name}</strong>
-                  <div className="control">
-                    <span>
-                      <Button
-                        className="btn-sm float-end m-1"
-                        variant="danger"
-                        onClick={() => handleRemove(category.slug)}
-                      >
-                        <TrashIcon color="white" size="1.5rem" />
-                      </Button>
-                    </span>
-                    <span>
-                      <Button
-                        className="btn-sm float-end m-1"
-                        variant="warning"
-                      >
-                        <EditRegularIcon color="white" size="1.5rem" />
-                      </Button>
-                    </span>
-                  </div>
-                </Card.Body>
-              </Card>
-            </Col>
-          );
-        })}
-      </Row>
     </div>
   );
 };
 
-export default CategoryCreate;
+export default CategoryUpdateScreen;

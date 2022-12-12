@@ -25,6 +25,11 @@ import PasswordScreen from '../features/user/screens/PasswordScreen';
 import WishlistScreen from '../features/user/screens/WishlistScreen';
 //! imp Screens Admin
 import AdminDashboardScreen from '../features/admin/screens/AdminDashboardScreen';
+import CategoryCreateScreen from '../features/category/screens/CategoryCreateScreen';
+import CategoryUpdateScreen from '../features/category/screens/CategoryUpdateScreen';
+import SubCategoryCreateScreen from '../features/subCategory/screens/SubCategoryCreateScreen';
+import SubCategoryUpdateScreen from '../features/subCategory/screens/SubCategoryUpdateScreen';
+import ProductCreateScreen from '../features/product/screens/ProductCreateScreen';
 
 const RootComponent = () => {
   return (
@@ -67,9 +72,24 @@ const router = createBrowserRouter([
       },
       //! Private Routes: Admin
       {
-        path: '/admin',
+        path: '/',
         element: <AdminRoute />,
-        children: [{ path: 'dashboard', element: <AdminDashboardScreen /> }],
+        children: [
+          {
+            path: '/admin',
+            element: <AdminDashboardScreen />,
+            children: [
+              //! Routes: admin/category
+              { path: 'category', element: <CategoryCreateScreen /> },
+              { path: 'category/:slug', element: <CategoryUpdateScreen /> },
+              //! Routes: admin/category
+              { path: 'subcategory', element: <SubCategoryCreateScreen /> },
+              { path: 'subcategory/:slug', element: <SubCategoryUpdateScreen /> },
+              //! Routes: admin/product
+              { path: 'product', element: <ProductCreateScreen /> },
+            ],
+          },
+        ],
       },
     ],
   },

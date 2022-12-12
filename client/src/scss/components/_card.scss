@@ -1,8 +1,8 @@
 .card {
   &.card-category {
-    padding: 0.5rem;
-  }
-  .card-body {
-    padding: 0;
+    padding: 0rem;
+    .card-body { 
+      padding: 0.25rem 1rem;
+    }
   }
 }

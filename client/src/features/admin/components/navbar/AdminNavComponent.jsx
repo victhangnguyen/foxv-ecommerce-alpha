@@ -27,7 +27,7 @@ const AdminNavComponent = () => {
           </Link>
         </Nav.Item>
         <Nav.Item>
-          <Link to={`/admin/sub`} className="nav-link">
+          <Link to={`/admin/subcategory`} className="nav-link">
             Sub Category
           </Link>
         </Nav.Item>
