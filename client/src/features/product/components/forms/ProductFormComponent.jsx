@@ -5,7 +5,8 @@ import { Button } from 'react-bootstrap';
 import FormComponent from '../../../../components/forms/FormComponent';
 import InputComponent from '../../../../components/forms/InputComponent';
 import SelectComponent from '../../../../components/forms/SelectComponent';
-import TagFieldArrayComponent from '../../../../components/forms/TagFieldArrayComponent';
+import SelectControllerComponent from '../../../../components/forms/SelectControllerComponent';
+import TagComponent from '../../../../components/forms/TagComponent';
 
 const validationSchema = yup.object({
   name: yup
@@ -18,10 +19,11 @@ const validationSchema = yup.object({
     .min(10, 'Ít nhất 10 ký tự.')
     .max(1000, 'Nhiều nhất 1000 ký tự.')
     .required('Yêu cầu nhập Mô tả sản phẩm.'),
-  category: yup
-    .string()
-    .min(24, 'Category không hợp lệ')
-    .max(24, 'Category không hợp lệ'),
+  // category: yup
+  //   .string()
+  //   .min(24, 'Category không hợp lệ')
+  //   .max(24, 'Category không hợp lệ'),
+  subCategories: yup.array().of(yup.string()),
   price: yup
     .number()
     .max(5000000, 'Nhiều nhất là 5 triệu')
@@ -30,6 +32,7 @@ const validationSchema = yup.object({
 });
 
 const ProductFormComponent = ({
+  product,
   categories,
   subOptions,
   handleCategoryChange,
@@ -38,15 +41,31 @@ const ProductFormComponent = ({
   onSubmit,
   labelButton = 'Tạo ngay',
 }) => {
-  const initialValues = [
-    { name: 'name', value: 'Áo Baby-doll Hàn Quốc' },
-    { name: 'description', value: 'Mô tả phải có ít nhất 10 ký tự' },
-    { name: 'price', value: 0 }, //! type: number
-    { name: 'shipping', value: 'yes' },
-    { name: 'quantity', value: 10 },
-    { name: 'color', value: 'black' },
-    { name: 'brand', value: 'dior' },
-  ];
+  // const initialValues = [
+  //   { name: 'name', value: product?.name },
+  //   { name: 'image', value: product?.image },
+  //   { name: 'description', value: product?.description },
+  //   { name: 'category', value: product?.category },
+  //   { name: 'subCategories', value: product?.subCategories || [] },
+  //   { name: 'price', value: product?.price }, //! type: number
+  //   { name: 'shipping', value: product?.shipping },
+  //   { name: 'quantity', value: product?.quantity },
+  //   { name: 'color', value: product?.color },
+  //   { name: 'brand', value: product?.brand },
+  // ];
+
+  const defaultValues = {
+    name: '',
+    image: '',
+    description: '',
+    category: '',
+    subCategories: [],
+    price: 0,
+    shipping: 'no',
+    quantity: 0,
+    color: '',
+    brand: '',
+  };
 
   const categoryOptions = categories?.map((category) => ({
     key: category._id,
@@ -72,7 +91,8 @@ const ProductFormComponent = ({
   return (
     <div className="mb-4 p-3">
       <FormComponent
-        initialValues={initialValues}
+        values={product}
+        defaultValues={defaultValues}
         validationSchema={validationSchema}
         onSubmit={onSubmit}
       >
@@ -85,9 +105,19 @@ const ProductFormComponent = ({
           placeholder={'Nhập tên sản phẩm'}
         />
         {
+          //! image
+        }
+        <InputComponent
+          type="file"
+          name="image"
+          label={'Hình ảnh sản phẩm'}
+          placeholder={'Chọn hình sản phẩm'}
+        />
+        {
           //! description
         }
         <InputComponent
+          as="textarea"
           name="description"
           label={'Mô tả sản phẩm'}
           placeholder={'Nhập mô tả sản phẩm'}
@@ -95,7 +125,7 @@ const ProductFormComponent = ({
         {
           //! category
         }
-        <TagFieldArrayComponent
+        <SelectControllerComponent
           handleChange={handleCategoryChange}
           name={'category'}
           label={'Sản phẩm thuộc loại'}
@@ -105,10 +135,11 @@ const ProductFormComponent = ({
           //! subCategories
         }
         {showSub ? (
-          <SelectComponent
-            name={'subCategories'}
-            label={'Sub-Category'}
+          <TagComponent
+            name="subCategories"
+            label={'Tag nhãn sản phẩm (Loại / Kiểu / Size / Màu)'}
             options={subCategoryOptions}
+            placeholder={'Enter để nhập nhãn sản phẩm'}
           />
         ) : (
           <></>

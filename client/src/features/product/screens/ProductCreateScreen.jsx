@@ -1,6 +1,7 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import { toast } from 'react-toastify';
+import { Link } from 'react-router-dom';
 
 //! imp API
 import productAPI from '../../../API/productAPI';
@@ -21,7 +22,7 @@ const ProductCreateScreen = () => {
   const [subOptions, setSubOptions] = React.useState([]);
   const [showSub, setShowSub] = React.useState(false);
   //! turn on/off Alert
-  const [show, setShow] = React.useState(false);
+  const [showAlert, setShowAlert] = React.useState(false);
   //! search/filter
   const [keyword, setKeyword] = React.useState('');
 
@@ -38,21 +39,29 @@ const ProductCreateScreen = () => {
     loadCategories();
   }, []);
 
-  const onSubmit = (data) => {
+  //! handle__Submit
+  const onSubmit = (data, e) => {
     console.log(
       '__Debugger__subCategory__screens__SubCategoryCreate__data: ',
       data
     );
-
     if (data.name && data.description) {
       setLoading(true);
+
+      const config = {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      };
       productAPI
-        .createProduct({ ...data, subCategories: [data.subCategories] })
+        .createProduct({ ...data, image: data.image[0] }, config)
         .then((product) => {
           setLoading(false);
           setNewProduct(product);
-          setShow(true);
+          setShowAlert(true);
           toast.success(`Sản phẩm đã được tạo`);
+          //! reset form
+          e.target.reset();
         })
         .catch((error) => {
           setLoading(false);
@@ -77,14 +86,6 @@ const ProductCreateScreen = () => {
         console.log(error);
       });
   };
-
-  // const handleRemove = (slug) => {
-  //   //! Model delete
-  //   setLoading(true);
-
-  //! Step 4
-  const searched = (keword) => (subCategory) =>
-    subCategory.name.toLowerCase().includes(keyword);
 
   const handleCategoryChange = (e) => {
     const cateogoryId = e.target.value;
@@ -111,14 +112,19 @@ const ProductCreateScreen = () => {
         //! Show Notication Alert
       }
       <Col md="12">
-        {show && (
+        {showAlert && (
           <AlertDismissibleComponent
-            show={show}
-            setShow={setShow}
+            show={showAlert}
+            setShow={setShowAlert}
             title={`Sản phẩm được tạo thành công!`}
           >
-            Sản phẩm <strong>{newProduct.name}</strong> có Mã số là{' '}
-            <strong>{newProduct._id}</strong>
+            <p>
+              Sản phẩm <strong>{newProduct.name}</strong> có Mã số là{' '}
+              <strong>{newProduct._id}</strong>
+            </p>
+            <p>
+              Xem chi tiết sản phẩm mới: <Link to={`/admin/product/${newProduct._id}`}><strong>{newProduct.name}</strong></Link>
+            </p>
           </AlertDismissibleComponent>
         )}
       </Col>

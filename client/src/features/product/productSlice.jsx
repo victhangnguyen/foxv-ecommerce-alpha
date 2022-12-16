@@ -3,13 +3,14 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 //! imp API
 import productAPI from '../../API/productAPI';
 
-export const getProducts = createAsyncThunk(
+export const getProductsByCount = createAsyncThunk(
   'product/getProducts',
   //! payload ActionCreator
-  async (_, thunkAPI) => {
+  async (count, thunkAPI) => {
     try {
-      const products = await productAPI.getProducts();
-      return thunkAPI.fulfillWithValue(products);
+      const response = await productAPI.getProductsByCount(count);
+
+      return thunkAPI.fulfillWithValue(response);
     } catch (error) {
       // return custom error message from API if any
       if (error.response && error.response.data.message) {
@@ -31,9 +32,12 @@ export const createProduct = createAsyncThunk(
         },
       };
 
-      const data = await productAPI.createProduct(updatedProductData, config);
+      const response = await productAPI.createProduct(
+        updatedProductData,
+        config
+      );
 
-      return thunkAPI.fulfillWithValue(data);
+      return thunkAPI.fulfillWithValue(response);
     } catch (error) {
       // return custom error message from API if any
       if (error.response && error.response.data.message) {
@@ -49,10 +53,10 @@ export const getProduct = createAsyncThunk(
   'product/getProduct',
   async (productId, thunkAPI) => {
     try {
-      const product = await productAPI.getProduct(productId);
-      return thunkAPI.fulfillWithValue(product);
+      const response = await productAPI.getProduct(productId);
+
+      return thunkAPI.fulfillWithValue(response);
     } catch (error) {
-      // return custom error message from API if any
       if (error.response && error.response.data.message) {
         return thunkAPI.rejectWithValue(error.response.data.message);
       } else {
@@ -75,14 +79,14 @@ const productSlice = createSlice({
   initialState: initialState,
   extraReducers: (builder) => {
     builder
-      .addCase(getProducts.pending, (state, action) => {
+      .addCase(getProductsByCount.pending, (state, action) => {
         state.loading = true;
       })
-      .addCase(getProducts.fulfilled, (state, action) => {
+      .addCase(getProductsByCount.fulfilled, (state, action) => {
         state.loading = false;
         state.products = action.payload;
       })
-      .addCase(getProducts, (state, action) => {
+      .addCase(getProductsByCount, (state, action) => {
         state.loading = false;
         state.error = action.payload;
       });

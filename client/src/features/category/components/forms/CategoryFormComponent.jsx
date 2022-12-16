@@ -8,8 +8,8 @@ import InputComponent from '../../../../components/forms/InputComponent';
 const validationSchema = yup.object({
   name: yup
     .string()
-    .min(3, 'Ít nhất 3 ký tự.')
-    .max(5, 'Nhiều nhất 5 ký tự.')
+    .min(2, 'Ít nhất 2 ký tự.')
+    .max(32, 'Nhiều nhất 32 ký tự.')
     .required('Vui lòng nhập Category.'),
 });
 

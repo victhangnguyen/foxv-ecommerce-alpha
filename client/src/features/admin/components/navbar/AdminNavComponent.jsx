@@ -13,22 +13,22 @@ const AdminNavComponent = () => {
         </Nav.Item>
         <Nav.Item>
           <Link to={`/admin/products`} className="nav-link">
-            Products
+            Quản lý Sản phẩm
           </Link>
         </Nav.Item>
         <Nav.Item>
           <Link to={`/admin/product`} className="nav-link">
-            Product
+            Thêm sản phẩm
           </Link>
         </Nav.Item>
         <Nav.Item>
           <Link to={`/admin/category`} className="nav-link">
-            Category
+            Thêm Category
           </Link>
         </Nav.Item>
         <Nav.Item>
           <Link to={`/admin/subcategory`} className="nav-link">
-            Sub Category
+            Thêm Sub-Category
           </Link>
         </Nav.Item>
         <Nav.Item>
@@ -38,7 +38,7 @@ const AdminNavComponent = () => {
         </Nav.Item>
         <Nav.Item>
           <Link to={`/user/password`} className="nav-link">
-            Password
+            Change Password
           </Link>
         </Nav.Item>
       </div>

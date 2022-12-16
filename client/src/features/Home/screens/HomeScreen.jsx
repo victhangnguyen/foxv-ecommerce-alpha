@@ -1,34 +1,43 @@
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 //! imp RTK-Actions
-import { getProducts } from '../../product/productSlice';
+import { getProductsByCount } from '../../product/productSlice';
 
 import { Col, Row } from 'react-bootstrap';
+//! imp APIs
+import productAPI from '../../../API/productAPI';
 
 //! imp comps
-import ProductComponent from '../../product/components/ProductComponent';
+import ProductCardComponent from '../../product/components/cards/ProductCardComponent';
 import LoaderCommponent from '../../../components/LoaderCommponent';
 import MessageCommponent from '../../../components/MessageCommponent';
+import CarouselComponent from '../../../components/carousel/CarouselComponent';
 
 const HomeScreen = () => {
   const dispatch = useDispatch();
 
+  //! effect DidMount
   React.useEffect(() => {
-    dispatch(getProducts());
+    dispatch(getProductsByCount(50));
   }, [dispatch]);
 
   const product = useSelector((state) => ({ ...state.product }));
 
   const { products, loading, error } = product;
-  console.log('__Debugger__HomeScreene__products: ', products);
+  // console.log('__Debugger__HomeScreene__products: ', products);
 
+  React.useEffect(() => {}, []);
+
+  // ) : error ? (
+  //   <MessageCommponent variant="danger">{error}</MessageCommponent>
   return (
     <>
+    <Row>
+    <CarouselComponent />
+    </Row>
       <h1>Latest Products</h1>
-      {loading === 'idle' || loading === 'pending' ? (
+      {loading === true ? (
         <LoaderCommponent />
-      ) : error ? (
-        <MessageCommponent variant="danger">{error}</MessageCommponent>
       ) : (
         <Row>
           {
@@ -38,7 +47,7 @@ const HomeScreen = () => {
             products.map((product) => {
               return (
                 <Col key={product._id} xs={6} md={4} lg={3}>
-                  <ProductComponent product={product} />
+                  <ProductCardComponent product={product} />
                 </Col>
               );
             })}

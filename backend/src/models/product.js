@@ -53,7 +53,7 @@ const productSchema = new mongoose.Schema(
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User',
     },
-    imageFile: {},
+    image: {},
     shipping: { type: String, enum: ['yes', 'no'] },
     color: {
       type: String,

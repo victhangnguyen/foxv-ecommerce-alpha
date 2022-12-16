@@ -4,8 +4,13 @@ const productAPI = {
   //! @desc     Fetch all products
   //! @route    GET /api/products
   //! @access   Public
-  getProducts: (config) => {
-    const url = `/product`;
+  // getProducts: (config) => {
+  //   const url = `/product`;
+  //   return axiosInstance.get(url, config);
+  // },
+
+  getProductsByCount: (count, config) => {
+    const url = `/products/${count}`;
     return axiosInstance.get(url, config);
   },
 
@@ -20,9 +25,25 @@ const productAPI = {
   //! @desc     Create a product
   //! @route    POST /api/products
   //! @access   Admin
-  createProduct: (formData, config) => {
+  createProduct: (product, config) => {
     const url = `/product`;
-    return axiosInstance.post(url, formData, config);
+    return axiosInstance.post(url, product, config);
+  },
+
+  //! @desc     Delete one Product
+  //! @route    DEL /api/product/:productId
+  //! @access   Private/Public
+  removeProduct: (productId, config) => {
+    const url = `/product/${productId}`;
+    return axiosInstance.delete(url, config);
+  },
+
+  //! @desc     Update one Product
+  //! @route    PUT /api/product/:productId
+  //! @access   Private
+  updateProduct: (productId, product, config) => {
+    const url = `/product/${productId}`;
+    return axiosInstance.put(url, product, config);
   },
 };
 

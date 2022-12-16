@@ -2,6 +2,9 @@ import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, Link } from 'react-router-dom';
 
+//! APIs
+import productAPI from '../../../API/productAPI';
+
 //! imp actions
 import { getProduct } from '../productSlice';
 
@@ -9,6 +12,8 @@ import { getProduct } from '../productSlice';
 import { Row, Col, Card, Breadcrumb, Button } from 'react-bootstrap';
 
 const ProductDetail = () => {
+  // const [loading, setLoading] = React.useState(false);
+  // const [products, setProducts] = React.useState([]);
   const dispatch = useDispatch();
   const { productId } = useParams();
 
@@ -18,47 +23,78 @@ const ProductDetail = () => {
     dispatch(getProduct(productId));
   }, []);
 
-  console.log('__Debugger__screens__ProductDetailScreen__product: ', product);
+  const loadAllProducts = () => {
+    productAPI.getProductsByCount();
+  };
+
+  // console.log('__Debugger__screens__ProductDetailScreen__product: ', product);
   return (
     <section className="section-content padding-y bg">
       <Card as="article">
         <Card.Body>
           <Row>
-            <Breadcrumb>
-              <Breadcrumb.Item>
-                <Link to="/">Trang Chủ</Link>
-              </Breadcrumb.Item>
-              {
-                //! Category
-              }
-              <Breadcrumb.Item>
-                <Link>{product.category}</Link>
-              </Breadcrumb.Item>
-              <Breadcrumb.Item active>
-                <Link to="#">{product.name}</Link>
-              </Breadcrumb.Item>
-            </Breadcrumb>
+            <nav aria-label="breadcrumb">
+              <ol className="breadcrumb">
+                <li className="breadcrumb-item">
+                  <Link to="/">Home</Link>
+                </li>
+                <li className="breadcrumb-item">
+                  <Link to="/">{product.category}</Link>
+                </li>
+                <li className="breadcrumb-item active" aria-current="page">
+                  <Link to={`/product/${product._id}`}>{product.name}</Link>
+                </li>
+              </ol>
+            </nav>
           </Row>
           <Row>
             <Col as="aside" md={4}>
               <article className="gallery-wrap">
                 <div className="card img-product-main-wrap">
                   <Card.Img
-                    src={`http://127.0.0.1:5000/${product.imageFile}`}
+                    src={
+                      product.image
+                        ? `http://127.0.0.1:5000/${product.image}`
+                        : ``
+                    }
                   />
                 </div>
                 <div className="thumbs-wrap">
                   <a href="#" className="item-thumb">
-                    <img src={`http://127.0.0.1:5000/${product.imageFile}`} />
+                    <img
+                      src={
+                        product.image
+                          ? `http://127.0.0.1:5000/${product.image}`
+                          : ``
+                      }
+                    />
                   </a>
                   <a href="#" className="item-thumb">
-                    <img src={`http://127.0.0.1:5000/${product.imageFile}`} />
+                    <img
+                      src={
+                        product.image
+                          ? `http://127.0.0.1:5000/${product.image}`
+                          : ``
+                      }
+                    />
                   </a>
                   <a href="#" className="item-thumb">
-                    <img src={`http://127.0.0.1:5000/${product.imageFile}`} />
+                    <img
+                      src={
+                        product.image
+                          ? `http://127.0.0.1:5000/${product.image}`
+                          : ``
+                      }
+                    />
                   </a>
                   <a href="#" className="item-thumb">
-                    <img src={`http://127.0.0.1:5000/${product.imageFile}`} />
+                    <img
+                      src={
+                        product.image
+                          ? `http://127.0.0.1:5000/${product.image}`
+                          : ``
+                      }
+                    />
                   </a>
                 </div>
               </article>
@@ -72,38 +108,6 @@ const ProductDetail = () => {
                 <div className="mb-3">
                   <h6 className="fw-bold">MÔ TẢ SẢN PHẨM</h6>
                   <Card.Text>{product.description}</Card.Text>
-                </div>
-
-                <div className="form-group">
-                  <label className="text-muted">Available sizes</label>
-                  <div>
-                    <label className="js-check btn btn-check active mr-1">
-                      <input
-                        type="radio"
-                        name="option_size"
-                        value="option1"
-                        checked=""
-                      />
-                      <span>Small</span>
-                    </label>
-                    <label className="js-check btn btn-check mr-1">
-                      <input type="radio" name="option_size" value="option1" />
-                      <span>Medium</span>
-                    </label>
-                    <label className="js-check btn btn-check mr-1">
-                      <input type="radio" name="option_size" value="option1" />
-                      <span>Large</span>
-                    </label>
-                    <label className="js-check btn btn-check disabled">
-                      <input
-                        type="radio"
-                        name="option_size"
-                        disabled=""
-                        value="option1"
-                      />
-                      <span>Babies</span>
-                    </label>
-                  </div>
                 </div>
 
                 <div className="mb-3">

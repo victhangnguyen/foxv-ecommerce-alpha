@@ -6,7 +6,7 @@ const categorySchema = new mongoose.Schema(
     name: {
       type: String,
       trim: true,
-      minLength: [3, 'Thấp nhất 3 ký tự'],
+      minLength: [2, 'Thấp nhất 2 ký tự'],
       maxLength: [32, 'Nhiều nhất 32 ký tự'],
       required: true,
     },

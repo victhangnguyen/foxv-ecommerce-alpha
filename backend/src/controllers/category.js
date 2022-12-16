@@ -63,7 +63,7 @@ export const removeCategory = async (req, res, next) => {
   const { slug } = req.params;
   try {
     const deletedCategory = await Category.findOneAndDelete({ slug });
-    res.json(deletedCategory); //! return deletedCategory
+    res.status(204).json(deletedCategory);
   } catch (error) {
     Logging.error('Error__ctrls__Category: ' + error);
     res.status(400).json({ message: error.message });

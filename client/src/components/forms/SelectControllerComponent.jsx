@@ -3,18 +3,16 @@ import { Controller } from 'react-hook-form';
 import { Row, Col, Form } from 'react-bootstrap';
 
 const SelectControllerComponent = ({
-  control,
-  register,
+  methods,
   options,
   name,
   label,
   handleChange,
-  errors,
   ...rest
 }) => {
   return (
     <Controller
-      control={control}
+      control={methods.control}
       name={name}
       render={({ field }) => (
         <Form.Group as={Row} className="mb-3" controlId={`ipt-${name}`}>
@@ -23,10 +21,10 @@ const SelectControllerComponent = ({
             <Form.Select
               {...field}
               size="sm"
-              isInvalid={errors[name] ? true : false}
+              isInvalid={methods.formState.errors[name] ? true : false}
               onChange={(e) => {
                 field.onChange(e);
-                handleChange(e);
+                handleChange(e, methods.setValue);
               }}
             >
               <option value={''}>Vui lòng chọn</option>
@@ -36,9 +34,9 @@ const SelectControllerComponent = ({
                 </option>
               ))}
             </Form.Select>
-            {errors[name] && (
+            {methods.formState.errors[name] && (
               <Form.Control.Feedback type="invalid">
-                {errors[name].message}
+                {methods.formState.errors[name].message}
               </Form.Control.Feedback>
             )}
           </Col>

@@ -93,13 +93,7 @@ const AddEditProductScreen = () => {
     formState: { errors },
   } = useForm({ resolver });
 
-  console.log('__Debugger__Screens__AddEditProductScreen__errors ', errors);
-
   const checkKeyDown = (e) => {
-    console.log(
-      '__Debugger__Screens__AddEditProductScreen__event ',
-      e.target
-    );
     if (e.code === 'Enter') {
       //! exception
       if (e.target.nodeName === 'TEXTAREA') return;

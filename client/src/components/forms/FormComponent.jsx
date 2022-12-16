@@ -33,39 +33,62 @@ const useYupValidationResolver = (validationSchema) =>
     [validationSchema]
   );
 
-const FormComponent = (props) => {
-  const resolver = useYupValidationResolver(props.validationSchema);
-  const {
-    control,
-    handleSubmit,
-    register,
-    setValue,
-    formState: { errors },
-  } = useForm({
+const FormComponent = ({
+  values,
+  defaultValues,
+  validationSchema,
+  onSubmit,
+  children,
+}) => {
+  const resolver = useYupValidationResolver(validationSchema);
+  const methods = useForm({
     resolver,
+    defaultValues: defaultValues,
   });
 
+  // resetForm = methods.reset();
+
+  //! initialize Values
   React.useEffect(() => {
-    props?.initialValues?.forEach((v) => setValue(v.name, v.value));
-  }, []);
+    // initialValues?.forEach((v) => methods.setValue(v.name, v.value));
+    methods.reset(values);
+  }, [methods.reset, values]);
+
+  const checkKeyDown = (e) => {
+    if (e.code === 'Enter') {
+      if (e.target.nodeName !== 'TEXTAREA') {
+        e.preventDefault();
+      }
+    }
+    // if (e.code === 'Enter')
+    //   //! exception
+    //   // if (
+    //   //   e.target.nodeName === 'TEXTAREA' ||
+    //   //   e.target.attributes[0].nodeValue === 'tag' ||
+    //   //   e.target.name === 'image'
+    //   // )
+    //     return;
+    // }
+  };
 
   return (
-    <Form onSubmit={handleSubmit(props.onSubmit)}>
-      {Array.isArray(props.children)
-        ? props.children.map((child) => {
+    <Form
+      onSubmit={methods.handleSubmit(onSubmit)}
+      onKeyDown={(e) => checkKeyDown(e)}
+    >
+      {Array.isArray(children)
+        ? children.map((child) => {
             return child.props.name
               ? React.createElement(child.type, {
                   ...{
                     ...child.props,
-                    register,
-                    control,
                     key: child.props.name,
-                    errors,
+                    methods,
                   },
                 })
               : child;
           })
-        : props.children}
+        : children}
     </Form>
   );
 };

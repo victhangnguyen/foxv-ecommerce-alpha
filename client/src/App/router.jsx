@@ -30,6 +30,8 @@ import CategoryUpdateScreen from '../features/category/screens/CategoryUpdateScr
 import SubCategoryCreateScreen from '../features/subCategory/screens/SubCategoryCreateScreen';
 import SubCategoryUpdateScreen from '../features/subCategory/screens/SubCategoryUpdateScreen';
 import ProductCreateScreen from '../features/product/screens/ProductCreateScreen';
+import ProductUpdateScreen from '../features/product/screens/ProductUpdateScreen';
+import AllProductScreen from '../features/product/screens/AllProductScreen';
 
 const RootComponent = () => {
   return (
@@ -87,6 +89,10 @@ const router = createBrowserRouter([
               { path: 'subcategory/:slug', element: <SubCategoryUpdateScreen /> },
               //! Routes: admin/product
               { path: 'product', element: <ProductCreateScreen /> },
+              //! Routes: admin/products
+              { path: 'products', element: <AllProductScreen /> },
+              //! Routes: admin/product/:productId
+              { path: 'product/:productId', element: <ProductUpdateScreen /> },
             ],
           },
         ],
