@@ -3,24 +3,45 @@ import { createSlice, createAsyncThunk } from '@reduxjs/toolkit';
 //! imp API
 import productAPI from '../../API/productAPI';
 
-export const getProductsByCount = createAsyncThunk(
-  'product/getProducts',
-  //! payload ActionCreator
-  async (count, thunkAPI) => {
-    try {
-      const response = await productAPI.getProductsByCount(count);
+// export const getProducts = createAsyncThunk(
+//   'product/getProducts',
+//   async (data, thunkAPI) => {
+//     try {
+//       const response = await productAPI.getProducts(
+//         data.sort,
+//         data.order,
+//         data.limit
+//       );
+//       return thunkAPI.fulfillWithValue(response);
+//     } catch (error) {
+//       // return custom error message from API if any
+//       if (error.response && error.response.data.message) {
+//         return thunkAPI.rejectWithValue(error.response.data.message);
+//       } else {
+//         return thunkAPI.rejectWithValue(error.message);
+//       }
+//     }
+//   }
+// );
 
-      return thunkAPI.fulfillWithValue(response);
-    } catch (error) {
-      // return custom error message from API if any
-      if (error.response && error.response.data.message) {
-        return thunkAPI.rejectWithValue(error.response.data.message);
-      } else {
-        return thunkAPI.rejectWithValue(error.message);
-      }
-    }
-  }
-);
+// export const getProductsByCount = createAsyncThunk(
+//   'product/getProductsByCount',
+//   //! payload ActionCreator
+//   async (count, thunkAPI) => {
+//     try {
+//       const response = await productAPI.getProductsByCount(count);
+
+//       return thunkAPI.fulfillWithValue(response);
+//     } catch (error) {
+//       // return custom error message from API if any
+//       if (error.response && error.response.data.message) {
+//         return thunkAPI.rejectWithValue(error.response.data.message);
+//       } else {
+//         return thunkAPI.rejectWithValue(error.message);
+//       }
+//     }
+//   }
+// );
 
 export const createProduct = createAsyncThunk(
   'product/createProduct',
@@ -78,18 +99,18 @@ const productSlice = createSlice({
   name: 'product',
   initialState: initialState,
   extraReducers: (builder) => {
-    builder
-      .addCase(getProductsByCount.pending, (state, action) => {
-        state.loading = true;
-      })
-      .addCase(getProductsByCount.fulfilled, (state, action) => {
-        state.loading = false;
-        state.products = action.payload;
-      })
-      .addCase(getProductsByCount, (state, action) => {
-        state.loading = false;
-        state.error = action.payload;
-      });
+    // builder
+    //   .addCase(getProductsByCount.pending, (state, action) => {
+    //     state.loading = true;
+    //   })
+    //   .addCase(getProductsByCount.fulfilled, (state, action) => {
+    //     state.loading = false;
+    //     state.products = action.payload;
+    //   })
+    //   .addCase(getProductsByCount, (state, action) => {
+    //     state.loading = false;
+    //     state.error = action.payload;
+    //   });
     builder
       .addCase(createProduct.pending, (state, action) => {
         state.loading = true;
@@ -115,6 +136,19 @@ const productSlice = createSlice({
         state.loading = false;
         state.error = action.payload;
       });
+    // builder
+    //   .addCase(getProducts.pending, (state, action) => {
+    //     state.loading = true;
+    //     state.products = initialState.product;
+    //   })
+    //   .addCase(getProducts.fulfilled, (state, action) => {
+    //     state.loading = false;
+    //     state.products = action.payload;
+    //   })
+    //   .addCase(getProducts.rejected, (state, action) => {
+    //     state.loading = false;
+    //     state.error = action.payload;
+    //   });
   },
 });
 

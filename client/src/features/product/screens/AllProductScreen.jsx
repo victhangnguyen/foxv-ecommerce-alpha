@@ -6,7 +6,7 @@ import { Link } from 'react-router-dom';
 //! imp APIs
 import productAPI from '../../../API/productAPI';
 //! imp comps
-import AdminProductCardComponent from '../../product/components/cards/AdminProductCardComponent';
+import AdminProductCard from '../../product/components/cards/AdminProductCard';
 import LoaderCommponent from '../../../components/LoaderCommponent';
 
 const AllProductScreen = () => {
@@ -35,7 +35,7 @@ const AllProductScreen = () => {
     productAPI
       .removeProduct(productId)
       .then((data) => {
-        console.log('__Debugger__AdminProductCardComponent__data: ', data);
+        console.log('__Debugger__AdminProductCard__data: ', data);
         loadAllProducts();
         toast(`Sản phẩm ${data.name} đã được xóa`)
       })
@@ -75,7 +75,7 @@ const AllProductScreen = () => {
             products.map((product) => {
               return (
                 <Col key={product._id} xs={6} sm={4} md={3} lg={2}>
-                  <AdminProductCardComponent
+                  <AdminProductCard
                     product={product}
                     handleRemove={handleRemove}
                   />

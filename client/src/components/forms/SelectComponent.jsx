@@ -2,7 +2,6 @@ import React from 'react';
 import { Row, Col, Form } from 'react-bootstrap';
 
 const SelectComponent = ({ methods, options, name, label, ...rest }) => {
-  // console.log('__Debugger__SelectComponent__options: ', options);
   return (
     <Form.Group as={Row} className="mb-3" controlId={`ipt-${name}`}>
       {label && <Form.Label>{label}</Form.Label>}

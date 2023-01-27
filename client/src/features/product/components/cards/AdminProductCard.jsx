@@ -5,7 +5,7 @@ import { Link, useNavigate } from 'react-router-dom';
 import TrashIcon from '../../../../components/icons/TrashIcon';
 import EditRegularIcon from '../../../../components/icons/EditRegularIcon';
 
-const AdminProductCardComponent = ({ product, handleRemove }) => {
+const AdminProductCard = ({ product, handleRemove }) => {
   return (
     <Card as="article" className="my-3 p-3 rounded card-admin-product">
       <Link to={`/product/${product._id}`}>
@@ -45,4 +45,4 @@ const AdminProductCardComponent = ({ product, handleRemove }) => {
   );
 };
 
-export default AdminProductCardComponent;
+export default AdminProductCard;

@@ -41,10 +41,10 @@ const ProductCreateScreen = () => {
 
   //! handle__Submit
   const onSubmit = (data, e) => {
-    console.log(
-      '__Debugger__subCategory__screens__SubCategoryCreate__data: ',
-      data
-    );
+    // console.log(
+    //   '__Debugger__subCategory__screens__SubCategoryCreate__data: ',
+    //   data
+    // );
     if (data.name && data.description) {
       setLoading(true);
 
@@ -94,7 +94,7 @@ const ProductCreateScreen = () => {
       categoryAPI
         .getCategorySubs(cateogoryId)
         .then((subs) => {
-          console.log('__Debugger__getCategorySubs__subs: ', subs);
+          // console.log('__Debugger__getCategorySubs__subs: ', subs);
           setSubOptions(subs);
         })
         .catch((error) => {

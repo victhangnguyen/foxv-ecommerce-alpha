@@ -126,3 +126,58 @@ export const updateProduct = async (req, res, next) => {
     res.status(400).json({ message: error.message });
   }
 };
+
+/*  Without Pagination */
+// export const list = async (req, res, next) => {
+//   //! createdAt/updatedAt, desc/asc, 3
+//   try {
+//     const { sort, order, limit } = req.body;
+//     console.log('__Debugger__req.body: ', req.body);
+//     console.log('Running: ', limit);
+//     const products = await Product.find({})
+//       .populate('category')
+//       .populate('subCategories')
+//       .sort([[sort, order]])
+//       .limit(limit)
+//       .exec();
+
+//     res.json(products);
+//   } catch (error) {
+//     Logging.error('Error__ctrls__Category: ' + error);
+//     res.status(400).json({ message: error.message });
+//   }
+// };
+
+/*  With Pagination */
+export const list = async (req, res, next) => {
+  //! createdAt/updatedAt, desc/asc, 3
+  console.table(req.body);
+  try {
+    const { sort, order, page } = req.body;
+    const currentPage = page || 1;
+    const perPage = 4; //! willChange by width window
+    const products = await Product.find({})
+      .skip((currentPage - 1) * perPage)
+      .populate('category')
+      .populate('subCategories')
+      .sort([[sort, order]])
+      .limit(perPage)
+      .exec();
+
+    res.json(products);
+  } catch (error) {
+    Logging.error('Error__ctrls__Category: ' + error);
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const productsCount = async (req, res, next) => {
+  try {
+    const total = await Product.find({}).estimatedDocumentCount().exec();
+    console.log('__Debugger__productsCount__total: ', total);
+    res.status(200).json(total);
+  } catch (error) {
+    Logging.error('Error__ctrls__Category: ' + error);
+    res.status(400).json({ message: error.message });
+  }
+};

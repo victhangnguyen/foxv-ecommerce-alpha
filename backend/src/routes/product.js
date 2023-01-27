@@ -24,6 +24,11 @@ router.post(
 //! @access   Public
 router.get('/product/:productId', productController.getProduct);
 
+//! @desc     Fetch count of all product
+//! @route    GET /api/products/total
+//! @access   Private/Public
+router.get('/products/total', productController.productsCount);
+
 //! @desc     Fetch many products have limit by count
 //! @route    GET /api/products/:count
 //! @access   Public
@@ -47,5 +52,8 @@ router.put(
   upload.single('image'),
   productController.updateProduct
 );
+
+router.post('/products', productController.list);
+
 
 export default router;

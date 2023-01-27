@@ -247,8 +247,8 @@ main {
   }
 }
 nav.navbar {
-  background-color: #fcf5cf !important;
-  border-bottom: 2px solid #faeb9e;
+  background-color: #f9d7b8 !important;
+  border-bottom: 2px solid #f7c395;
 }
 nav .nav-dashboard {
   background-color: #bfd8e8;
@@ -310,6 +310,12 @@ a {
   margin: 0.1rem;
   padding: 0.25rem 0.2rem;
   font-size: 0.65rem !important;
+}
+
+.jumbotron {
+  padding: 4rem 2rem;
+  margin-bottom: 2rem;
+  background-color: #fbe4d0;
 }
 
 .gallery-wrap .img-product-main-wrap {

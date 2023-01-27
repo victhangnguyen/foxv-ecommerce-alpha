@@ -41,18 +41,6 @@ const ProductFormComponent = ({
   onSubmit,
   labelButton = 'Tạo ngay',
 }) => {
-  // const initialValues = [
-  //   { name: 'name', value: product?.name },
-  //   { name: 'image', value: product?.image },
-  //   { name: 'description', value: product?.description },
-  //   { name: 'category', value: product?.category },
-  //   { name: 'subCategories', value: product?.subCategories || [] },
-  //   { name: 'price', value: product?.price }, //! type: number
-  //   { name: 'shipping', value: product?.shipping },
-  //   { name: 'quantity', value: product?.quantity },
-  //   { name: 'color', value: product?.color },
-  //   { name: 'brand', value: product?.brand },
-  // ];
 
   const defaultValues = {
     name: '',

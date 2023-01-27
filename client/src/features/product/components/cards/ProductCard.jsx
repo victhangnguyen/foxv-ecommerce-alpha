@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom';
 //! imp components
 import RatingComponent from '../../../../components/RatingComponent';
 
-const ProductCardComponent = ({ product }) => {
+const ProductCard = ({ product }) => {
   return (
     <Card as="article" className="my-3 p-3 rounded card-product">
       <Link to={`/product/${product._id}`}>
@@ -43,4 +43,4 @@ const ProductCardComponent = ({ product }) => {
   );
 };
 
-export default ProductCardComponent;
+export default ProductCard;

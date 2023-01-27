@@ -1,3 +1,4 @@
+import axios from 'axios';
 import axiosInstance from './axiosInstance';
 
 const productAPI = {
@@ -44,6 +45,16 @@ const productAPI = {
   updateProduct: (productId, product, config) => {
     const url = `/product/${productId}`;
     return axiosInstance.put(url, product, config);
+  },
+
+  getProducts: (sort, order, page) => {
+    const url = `/products`;
+    return axiosInstance.post(url, { sort, order, page });
+  },
+
+  getProductsCount: async () => {
+    const url = `/products/total`;
+    return axiosInstance.get(url);
   },
 };
 

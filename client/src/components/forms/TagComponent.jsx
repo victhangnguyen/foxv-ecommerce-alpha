@@ -10,7 +10,7 @@ const TagComponent = ({ methods, name, label, options, placeholder }) => {
   };
 
   const addTags = (e, value) => {
-    if (e.target.value === '') return;
+    if (e.target.value === '') return; //! if Empty Input -> return
 
     methods.setValue(name, [...value, e.target.value]);
     // props.onChange([...tags, event.target.value]);
