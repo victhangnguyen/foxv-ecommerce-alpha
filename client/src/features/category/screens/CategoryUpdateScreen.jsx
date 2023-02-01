@@ -80,9 +80,7 @@ const CategoryUpdateScreen = () => {
     categoryAPI
       .getCategory(slug)
       .then((data) => {
-        console.log('__Debugger__screens__CategoryUpdate__data: ', data);
-
-        setValue('name', data.name);
+        setValue('name', data.category.name);
         setName(getValues('name'));
       })
       .catch((error) => {

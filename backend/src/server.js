@@ -13,11 +13,12 @@ import Logging from './library/Logging.js';
 //! config
 import config from './config/index.js';
 
-//! imp routes
+//! imp Routes
 import userRouter from './routes/user.js';
 import categoryRouter from './routes/category.js';
 import subCategoryRouter from './routes/subCategory.js';
 import productRouter from './routes/product.js';
+import colectionRouter from './routes/collection.js';
 
 const app = express();
 
@@ -38,6 +39,7 @@ app.use('/api/users', userRouter);
 app.use('/api', categoryRouter);
 app.use('/api', subCategoryRouter);
 app.use('/api', productRouter);
+app.use('/api', colectionRouter);
 
 config.db
   .connectMongoDB()

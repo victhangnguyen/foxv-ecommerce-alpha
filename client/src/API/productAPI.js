@@ -47,6 +47,9 @@ const productAPI = {
     return axiosInstance.put(url, product, config);
   },
 
+  //! @desc     Get Products with sort, order, and page
+  //! @route    GET /api/products
+  //! @access   Private/Public
   getProducts: (sort, order, page) => {
     const url = `/products`;
     return axiosInstance.post(url, { sort, order, page });
@@ -55,6 +58,11 @@ const productAPI = {
   getProductsCount: async () => {
     const url = `/products/total`;
     return axiosInstance.get(url);
+  },
+
+  fetchProductsByFilter: async (arg) => {
+    const url = `/search/filters`;
+    return axiosInstance.post(url, arg);
   },
 };
 

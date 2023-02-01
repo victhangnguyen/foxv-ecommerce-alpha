@@ -55,5 +55,10 @@ router.put(
 
 router.post('/products', productController.list);
 
+//! RATING
+router.put('/product/star/:productId', authMiddleware.auth, productController.productStar);
+
+//! SEARCH
+router.post('/search/filters', productController.searchFilters)
 
 export default router;

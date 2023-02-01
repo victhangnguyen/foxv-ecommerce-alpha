@@ -63,10 +63,12 @@ const productSchema = new mongoose.Schema(
       Type: String,
       enum: ['luis-vuiton', 'gucci', 'dior'],
     },
-    // rating: {
-    //   type: Number,
-    //   postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
-    // },
+    // rating: [
+    //   {
+    //     type: Number,
+    //     postedBy: { type: mongoose.Schema.Types.ObjectId, ref: 'User' },
+    //   },
+    // ],
     discount: {
       type: Number,
       default: 0,

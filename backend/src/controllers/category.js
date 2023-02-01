@@ -4,6 +4,7 @@ import slugify from 'slugify';
 import Logging from '../library/Logging.js';
 
 //! imp models
+import Product from '../models/product.js';
 import Category from '../models/category.js';
 import SubCategory from '../models/subCategory.js';
 
@@ -30,13 +31,19 @@ export const getCategories = async (req, res, next) => {
   }
 };
 
-// getCategory
 export const getCategory = async (req, res, next) => {
-  const { slug } = req.params;
-
+  const slug = req.params.slug;
   try {
-    const category = await Category.findOne({ slug });
-    res.status(200).json(category);
+    const category = await Category.findOne({ slug }).exec();
+    console.log('__Debugger__ctrls/category__slug: ', slug);
+    const products = await Product.find({ category: category })
+      .populate('category')
+      .exec();
+    // res.status(200).json(category);
+    res.status(200).json({
+      category,
+      products,
+    });
   } catch (error) {
     Logging.error('Error__ctrls__Category: ' + error);
     res.status(400).json({ message: error.message });

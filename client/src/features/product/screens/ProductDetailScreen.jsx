@@ -19,6 +19,8 @@ const ProductDetail = () => {
 
   const { product } = useSelector((state) => ({ ...state.product }));
 
+  // console.log('__Debugger__ProductDetailScreen__product: ', product);
+
   React.useEffect(() => {
     dispatch(getProduct(productId));
   }, []);
@@ -27,7 +29,12 @@ const ProductDetail = () => {
     productAPI.getProductsByCount();
   };
 
-  // console.log('__Debugger__screens__ProductDetailScreen__product: ', product);
+  const showSubCategories =
+    product.subCategories?.length > 0 &&
+    product?.subCategories?.map((sub) => (
+      <span key={sub._id}>{sub?.name}</span>
+    ));
+
   return (
     <section className="section-content padding-y bg">
       <Card as="article">
@@ -39,7 +46,9 @@ const ProductDetail = () => {
                   <Link to="/">Home</Link>
                 </li>
                 <li className="breadcrumb-item">
-                  <Link to="/">{product.category}</Link>
+                  <Link to={`/collections/${product.category?.slug}`}>
+                    {product.category?.name}
+                  </Link>
                 </li>
                 <li className="breadcrumb-item active" aria-current="page">
                   <Link to={`/product/${product._id}`}>{product.name}</Link>
@@ -102,7 +111,16 @@ const ProductDetail = () => {
             <Col md={8} as="main">
               <article>
                 <Card.Title>{product.name}</Card.Title>
-                <Card.Text className="card-id">MSP: {product._id}</Card.Text>
+                <Card.Text className="card-id">
+                  ID sản phẩm: {product._id}
+                </Card.Text>
+                <Card.Text className="card-category">
+                  Loại: {product.category?.name}
+                </Card.Text>
+                <Card.Text className="card-category">
+                  Kiểu: {showSubCategories}
+                </Card.Text>
+
                 <hr />
 
                 <div className="mb-3">

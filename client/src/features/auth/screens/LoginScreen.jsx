@@ -143,10 +143,15 @@ const LoginScreen = () => {
             <Card.Body>
               <div className="mb-3 mt-md-4">
                 <h2 className="fw-bold mb-2 text-uppercase ">FOXV ECOMERCE</h2>
-                <p className=" mb-5">
-                  Đăng nhập để tích điểm và hưởng ưu đãi thành viên khi mua
-                  hàng. Nhập Email để đăng nhập thành viên FOXV.
-                </p>
+                <div className="mb-4">
+                  <p className="mb-2">
+                    Đăng nhập để tích điểm và hưởng ưu đãi thành viên khi mua
+                    hàng.
+                  </p>
+                  <p className="mb-2">
+                    Nhập Email để đăng nhập thành viên FOXV.
+                  </p>
+                </div>
                 <div className="mb-3">
                   {
                     //! "handleSubmit" will validate your inputs before invoking "onSubmit"

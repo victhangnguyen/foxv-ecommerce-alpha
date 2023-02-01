@@ -14,7 +14,7 @@ router.post(
 router.get('/categories', categoryController.getCategories);
 router.get(
   '/category/:slug',
-  authMiddleware.auth,
+  // authMiddleware.auth, //! ???
   categoryController.getCategory
 );
 router.put(

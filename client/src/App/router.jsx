@@ -19,6 +19,11 @@ import LoginScreen from '../features/auth/screens/LoginScreen';
 import ProfileScreen from '../features/auth/screens/ProfileScreen';
 import AddEditProductScreen from '../features/product/screens/AddEditProductScreen';
 import ProductDetailScreen from '../features/product/screens/ProductDetailScreen';
+//! imp Collections
+import CollectionScreen from '../features/collection/screens/CollectionScreen';
+import SubCollectionScreen from '../features/collection/screens/SubCollectionScreen';
+import ShopScreens from '../features/shop/screens/ShopScreens';
+
 //! imp Screens User
 import HistoryScreen from '../features/user/screens/HistoryScreen';
 import PasswordScreen from '../features/user/screens/PasswordScreen';
@@ -62,6 +67,9 @@ const router = createBrowserRouter([
       { path: '/addProduct', element: <AddEditProductScreen /> },
       { path: '/editProduct/:productId', element: <AddEditProductScreen /> },
       { path: '/product/:productId', element: <ProductDetailScreen /> },
+      { path: '/collections/:slug', element: <CollectionScreen /> },
+      { path: '/subcollections/:slug', element: <SubCollectionScreen /> },
+      { path: '/shop', element: <ShopScreens /> },
       //! Private Routes: User
       {
         path: '/user',
@@ -86,7 +94,10 @@ const router = createBrowserRouter([
               { path: 'category/:slug', element: <CategoryUpdateScreen /> },
               //! Routes: admin/category
               { path: 'subcategory', element: <SubCategoryCreateScreen /> },
-              { path: 'subcategory/:slug', element: <SubCategoryUpdateScreen /> },
+              {
+                path: 'subcategory/:slug',
+                element: <SubCategoryUpdateScreen />,
+              },
               //! Routes: admin/product
               { path: 'product', element: <ProductCreateScreen /> },
               //! Routes: admin/products

@@ -36,7 +36,9 @@ const BestSellersComponent = () => {
   };
 
   return (
-    <>
+    <div className="container">
+      <h4 className="jumbotron">Best Sellers</h4>
+
       {loading === true ? (
         <LoadingProductCard count={productsPerPage} />
       ) : (
@@ -55,20 +57,20 @@ const BestSellersComponent = () => {
                 );
               })}
           </Row>
-          {
-            //! Pagination
-          }
-          <div className="d-flex justify-content-center">
-            <PaginationComponent
-              itemsCount={productsCount}
-              itemsPerPage={productsPerPage}
-              currentPage={currentPage}
-              setCurrentPage={setCurrentPage}
-            />
-          </div>
         </>
       )}
-    </>
+      {
+        //! Pagination
+      }
+      <div className="d-flex justify-content-center">
+        <PaginationComponent
+          itemsCount={productsCount}
+          itemsPerPage={productsPerPage}
+          currentPage={currentPage}
+          setCurrentPage={setCurrentPage}
+        />
+      </div>
+    </div>
   );
 };
 

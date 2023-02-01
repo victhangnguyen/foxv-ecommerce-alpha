@@ -10,7 +10,6 @@ import config from '../config/index.js';
 import Product from '../models/product.js';
 
 export const createProduct = async (req, res, next) => {
-  console.log('__Debugger__controlers__product: ', { ...req.body });
   try {
     let image = req.file;
 
@@ -52,7 +51,10 @@ export const getProduct = async (req, res, next) => {
   const productId = req.params.productId;
 
   try {
-    const product = await Product.findById(productId);
+    const product = await Product.findById(productId)
+      .populate('category')
+      .populate('subCategories')
+      .exec();
     res.status(200).json(product);
   } catch (error) {
     Logging.error('Error__ctrls__product: ' + error);
@@ -174,8 +176,92 @@ export const list = async (req, res, next) => {
 export const productsCount = async (req, res, next) => {
   try {
     const total = await Product.find({}).estimatedDocumentCount().exec();
-    console.log('__Debugger__productsCount__total: ', total);
+    // console.log('__Debugger__productsCount__total: ', total);
     res.status(200).json(total);
+  } catch (error) {
+    Logging.error('Error__ctrls__Category: ' + error);
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const productStar = async (req, res, next) => {
+  const productId = req.params.productId;
+
+  try {
+    const product = await Product.findById(productId).exec();
+    // const user = await User.findOne({email: });
+    console.log(req);
+    //! who is updating?
+    //! check if currently logged in user have already added rating to this product?
+  } catch (error) {
+    Logging.error('Error__ctrls__Category: ' + error);
+    res.status(400).json({ message: error.message });
+  }
+};
+
+//! Search
+const handleQuery = async (req, res, query) => {
+  try {
+    const products = await Product.find({ $text: { $search: query } })
+      .populate('category', '_id name')
+      .populate('subCategories', '_id name')
+      .populate('creator', '_id name')
+      .exec();
+
+    return res.json(products);
+  } catch (error) {
+    Logging.error('Error__ctrls__Category: ' + error);
+    res.status(400).json({ message: error.message });
+  }
+};
+
+//! Price
+const handlePrice = async (req, res, priceIndex) => {
+  // console.log('__Debugger__ctrls/product__priceIndex: ', priceIndex);
+
+  try {
+    const priceList = [
+      [100000, 200000],
+      [200000, 400000],
+      [400000, 700000],
+      [700000, 10000000],
+    ];
+    const products = await Product.find(
+      priceIndex !== 0
+        ? {
+            price: {
+              $gte: priceList[priceIndex - 1][0],
+              $lte: priceList[priceIndex - 1][1],
+            },
+          }
+        : {}
+    )
+      .populate('category', '_id name')
+      .populate('subCategories', '_id name')
+      .populate('creator', '_id name')
+      .exec();
+
+    return res.json(products);
+  } catch (error) {
+    Logging.error('Error__ctrls__Category: ' + error);
+    res.status(400).json({ message: error.message });
+  }
+};
+
+export const searchFilters = async (req, res, next) => {
+  const { query } = req.body;
+  const priceIndex = +req.body.priceIndex;
+  try {
+    // console.log('__Debugger__ctrls/product__query: ', query);
+    if (query) {
+      await handleQuery(req, res, query);
+    }
+
+    if (priceIndex >= 0) {
+      await handlePrice(req, res, priceIndex);
+    }
+
+
   } catch (error) {
     Logging.error('Error__ctrls__Category: ' + error);
     res.status(400).json({ message: error.message });

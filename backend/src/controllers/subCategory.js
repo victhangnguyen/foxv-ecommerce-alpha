@@ -5,6 +5,7 @@ import Logging from '../library/Logging.js';
 
 //! imp models
 import SubCategory from '../models/subCategory.js';
+import Product from '../models/product.js';
 
 export const createSubCategory = async (req, res, next) => {
   const { name, parent } = req.body;
@@ -37,13 +38,17 @@ export const getSubCategories = async (req, res, next) => {
   }
 };
 
-// getCategory
 export const getSubCategory = async (req, res, next) => {
   const { slug } = req.params;
 
   try {
-    const subCategory = await SubCategory.findOne({ slug });
-    res.status(200).json(subCategory);
+    const subCategory = await SubCategory.findOne({ slug }).exec();
+
+    const products = await Product.find({ subCategories: subCategory })
+      .populate('category')
+      .exec();
+
+    res.status(200).json({ subCategory, products });
   } catch (error) {
     Logging.error('Error__ctrls__SubCategory: ' + error);
     res.status(404).json({ message: error.message });

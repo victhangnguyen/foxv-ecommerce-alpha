@@ -9,8 +9,8 @@ import SelectComponent from '../../../../components/forms/SelectComponent';
 const validationSchema = yup.object({
   name: yup
     .string()
-    .min(3, 'Ít nhất 3 ký tự.')
-    .max(5, 'Nhiều nhất 5 ký tự.')
+    .min(4, 'Ít nhất 3 ký tự.')
+    .max(25, 'Nhiều nhất 5 ký tự.')
     .required('Vui lòng nhập Tên Sub-Category.'),
 });
 

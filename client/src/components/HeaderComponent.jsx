@@ -14,6 +14,9 @@ import { useDispatch, useSelector } from 'react-redux';
 //! imp Actions
 import { setLogout } from '../features/auth/authSlice';
 
+//! imp Components
+import SearchComponent from '../features/search/components/SearchComponent';
+
 const HeaderComponent = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
@@ -50,8 +53,46 @@ const HeaderComponent = () => {
                 //! Nav me-auto (margin-end)
               }
               <Nav className="me-auto">
-                <Nav.Link href="#features">Sự kiện khuyến mãi</Nav.Link>
-                <Nav.Link href="#features">Sản phẩm mới</Nav.Link>
+                <Nav.Link as="div">
+                  <NavLink className={'nav-link'} to={'/event'}>
+                    Khuyến mãi
+                  </NavLink>
+                </Nav.Link>
+                <Nav.Link as={'div'}>
+                  <NavLink className={'nav-link'} to={'/shop'}>
+                    Shop
+                  </NavLink>
+                </Nav.Link>
+                <NavDropdown
+                  className={'nav-link'}
+                  title="Sản phẩm"
+                  id="collasible-nav-dropdown"
+                >
+                  <NavDropdown.Item as="div">
+                    <NavLink className={'nav-link'} to={`/collections/ao`}>
+                      Áo
+                    </NavLink>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as="div">
+                    <NavLink className={'nav-link'} to={`/collections/dam`}>
+                      Đầm
+                    </NavLink>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as="div">
+                    <NavLink className={'nav-link'} to={`/collections/vay`}>
+                      Váy
+                    </NavLink>
+                  </NavDropdown.Item>
+                  <NavDropdown.Item as="div">
+                    <NavLink className={'nav-link'} to={`/collections/quan`}>
+                      Quần
+                    </NavLink>
+                  </NavDropdown.Item>
+                  <NavDropdown.Divider />
+                  <NavDropdown.Item href="#action/3.4">
+                    Phụ kiện thời trang
+                  </NavDropdown.Item>
+                </NavDropdown>{' '}
                 <NavDropdown title="SALE OFF" id="collasible-nav-dropdown">
                   <NavDropdown.Item href="#action/3.1">Action</NavDropdown.Item>
                   <NavDropdown.Item href="#action/3.2">
@@ -83,6 +124,7 @@ const HeaderComponent = () => {
                 //! Nav
               }
               <Nav className="justify-content-end flex-grow-1 pe-3">
+                <SearchComponent />
                 {user ? (
                   <>
                     {user.result.role === 'admin' && (
@@ -99,16 +141,16 @@ const HeaderComponent = () => {
                       title={user.result.name}
                       id={`offcanvasNavbarDropdown-expand-lg`}
                     >
-                      <NavDropdown.Item>Profile</NavDropdown.Item>
+                      <NavDropdown.Item as="div">Profile</NavDropdown.Item>
                       {user.result.role >= 5 && (
-                        <NavDropdown.Item>
+                        <NavDropdown.Item as="div">
                           <NavLink className="nav-link" to={'/admin/category'}>
                             Dashboard
                           </NavLink>
                         </NavDropdown.Item>
                       )}
                       <NavDropdown.Divider />
-                      <NavDropdown.Item onClick={handleLogout}>
+                      <NavDropdown.Item as="div" onClick={handleLogout}>
                         Logout
                       </NavDropdown.Item>
                     </NavDropdown>
